@@ -1,3 +1,4 @@
+import QuestionArtistScreen from '../question-artist-screen/question-artist-screen';
 import WelcomeScreen from '../welcome-screen/welcome-screen';
 
 type AppProps = {
@@ -5,7 +6,7 @@ type AppProps = {
 }
 
 function App({errorsCount}: AppProps): JSX.Element {
-  return <WelcomeScreen errorsCount={errorsCount} />;
+  return <QuestionArtistScreen />;
 }
 
 export default App;
