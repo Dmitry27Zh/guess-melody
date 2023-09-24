@@ -1,3 +1,4 @@
+import AuthScreen from '../auth-screen/auth-screen';
 import GameOverScreen from '../game-over-screen/game-over-screen';
 import QuestionArtistScreen from '../question-artist-screen/question-artist-screen';
 import QuestionGenreScreen from '../question-genre-screen/question-genre-screen';
@@ -8,7 +9,7 @@ type AppProps = {
 }
 
 function App({errorsCount}: AppProps): JSX.Element {
-  return <GameOverScreen />;
+  return <AuthScreen />;
 }
 
 export default App;
