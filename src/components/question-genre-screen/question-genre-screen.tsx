@@ -1,8 +1,12 @@
+import { Helmet } from 'react-helmet-async';
 import Logo from '../logo/logo';
 
 function QuestionGenreScreen(): JSX.Element {
   return (
     <section className="game game--genre">
+      <Helmet>
+        <title>Угадай мелодию. Выберите треки</title>
+      </Helmet>
       <header className="game__header">
         <Logo />
 

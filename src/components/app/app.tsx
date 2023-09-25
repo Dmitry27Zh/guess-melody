@@ -1,5 +1,6 @@
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import WelcomeScreen from '../welcome-screen/welcome-screen';
 import QuestionArtistScreen from '../question-artist-screen/question-artist-screen';
 import QuestionGenreScreen from '../question-genre-screen/question-genre-screen';
@@ -15,17 +16,19 @@ type AppProps = {
 
 function App({errorsCount}: AppProps): JSX.Element {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path={AppRoute.Root} element={<WelcomeScreen errorsCount={errorsCount} />}/>
-        <Route path={AppRoute.DevArtist} element={<QuestionArtistScreen />}/>
-        <Route path={AppRoute.DevGenre} element={<QuestionGenreScreen />} />
-        <Route path={AppRoute.Login} element={<AuthScreen />} />
-        <Route path={AppRoute.Result} element={<PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}><WinScreen /></PrivateRoute>} />
-        <Route path={AppRoute.Lose} element={<GameOverScreen />} />
-        <Route path='*' element={<NotFoundScreen />} />
-      </Routes>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path={AppRoute.Root} element={<WelcomeScreen errorsCount={errorsCount} />}/>
+          <Route path={AppRoute.DevArtist} element={<QuestionArtistScreen />}/>
+          <Route path={AppRoute.DevGenre} element={<QuestionGenreScreen />} />
+          <Route path={AppRoute.Login} element={<AuthScreen />} />
+          <Route path={AppRoute.Result} element={<PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}><WinScreen /></PrivateRoute>} />
+          <Route path={AppRoute.Lose} element={<GameOverScreen />} />
+          <Route path='*' element={<NotFoundScreen />} />
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 
