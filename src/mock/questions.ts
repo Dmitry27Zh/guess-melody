@@ -38,18 +38,18 @@ export const questions: Questions = [
     answers: [
       {
         _id: String(Math.random()).slice(0, 5),
-        artist: `${AVATAR_URL}?rnd=${Math.random()}`,
-        picture: 'John Snow'
+        picture: `${AVATAR_URL}?rnd=${Math.random()}`,
+        artist: 'John Snow'
       },
       {
         _id: String(Math.random()).slice(0, 5),
-        artist: `${AVATAR_URL}?rnd=${Math.random()}`,
-        picture: 'Jack Daniels'
+        picture: `${AVATAR_URL}?rnd=${Math.random()}`,
+        artist: 'Jack Daniels'
       },
       {
         _id: String(Math.random()).slice(0, 5),
-        artist: `${AVATAR_URL}?rnd=${Math.random()}`,
-        picture: 'Jim Beam'
+        picture: `${AVATAR_URL}?rnd=${Math.random()}`,
+        artist: 'Jim Beam'
       },
     ]
   }
