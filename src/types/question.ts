@@ -1,5 +1,7 @@
+import { Id } from './common';
+
 export type Answer = {
-  _id: string;
+  _id: Id;
 }
 
 export type GenreAnswer = Answer & {

@@ -1,6 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../logo/logo';
 import { QuestionGenre } from '../../types/question';
+import { ChangeEvent, useState } from 'react';
+import { FormDataState, Id } from '../../types/common';
 
 type QuestionGenreScreenProps = {
   question: QuestionGenre;
@@ -9,6 +11,12 @@ type QuestionGenreScreenProps = {
 function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
   const { question } = props;
   const { genre, answers } = question;
+  const initialAnswerControls: FormDataState = answers.reduce((result, {_id}) => ({...result, [_id]: false}), {});
+  const [answerControls, setAnswerControls] = useState(initialAnswerControls);
+  const onChange = ({target}: ChangeEvent<HTMLInputElement>, id: Id) => {
+    const value = target.checked;
+    setAnswerControls((prevState) => ({...prevState, [id]: value}));
+  };
 
   return (
     <section className="game game--genre">
@@ -34,18 +42,22 @@ function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
       <section className="game__screen">
         <h2 className="game__title">Выберите {genre} треки</h2>
         <form className="game__tracks">
-          {answers.map((answer) => (
-            <div className="track" key={answer._id}>
-              <button className="track__button track__button--play" type="button"></button>
-              <div className="track__status">
-                <audio src={answer.src}></audio>
+          {answers.map((answer) => {
+            const checked = answerControls[answer._id] as boolean;
+
+            return (
+              <div className="track" key={answer._id}>
+                <button className="track__button track__button--play" type="button"></button>
+                <div className="track__status">
+                  <audio src={answer.src}></audio>
+                </div>
+                <div className="game__answer">
+                  <input className="game__input visually-hidden" type="checkbox" name="answer" value={answer._id} id={answer._id} checked={checked} onChange={(event) => onChange(event, answer._id)}/>
+                  <label className="game__check" htmlFor={answer._id}>Отметить</label>
+                </div>
               </div>
-              <div className="game__answer">
-                <input className="game__input visually-hidden" type="checkbox" name="answer" value={answer._id} id={answer._id}/>
-                <label className="game__check" htmlFor={answer._id}>Отметить</label>
-              </div>
-            </div>
-          ))}
+            );
+          })}
 
           <button className="game__submit button" type="submit">Ответить</button>
         </form>
