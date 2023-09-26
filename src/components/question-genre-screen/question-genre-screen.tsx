@@ -6,10 +6,11 @@ import { FormDataState, Id } from '../../types/common';
 
 type QuestionGenreScreenProps = {
   question: QuestionGenre;
+  onAnswer: () => void;
 }
 
 function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
-  const { question } = props;
+  const { question, onAnswer } = props;
   const { genre, answers } = question;
   const initialAnswerControls: FormDataState = answers.reduce((result, {_id}) => ({...result, [_id]: false}), {});
   const [answerControls, setAnswerControls] = useState(initialAnswerControls);
@@ -41,7 +42,11 @@ function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
 
       <section className="game__screen">
         <h2 className="game__title">Выберите {genre} треки</h2>
-        <form className="game__tracks">
+        <form className="game__tracks" onSubmit={(event) => {
+          event.preventDefault();
+          onAnswer();
+        }}
+        >
           {answers.map((answer) => {
             const checked = answerControls[answer._id] as boolean;
 

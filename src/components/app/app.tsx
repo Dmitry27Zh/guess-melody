@@ -25,7 +25,15 @@ function App({errorsCount, questions}: AppProps): JSX.Element {
         <Routes>
           <Route path={AppRoute.Root} element={<WelcomeScreen errorsCount={errorsCount} />}/>
           <Route path={AppRoute.DevArtist} element={<QuestionArtistScreen />}/>
-          <Route path={AppRoute.DevGenre} element={<QuestionGenreScreen question={firstQuestion as QuestionGenre} />} />
+          <Route path={AppRoute.DevGenre} element={
+            <QuestionGenreScreen
+              question={firstQuestion as QuestionGenre}
+              onAnswer={() => {
+                throw new Error('Function is not implemented!');
+              }}
+            />
+          }
+          />
           <Route path={AppRoute.Login} element={<AuthScreen />} />
           <Route path={AppRoute.Result} element={<PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}><WinScreen /></PrivateRoute>} />
           <Route path={AppRoute.Lose} element={<GameOverScreen />} />
