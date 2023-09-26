@@ -1,9 +1,13 @@
-export type GenreAnswer = {
+export type Answer = {
+  _id: string;
+}
+
+export type GenreAnswer = Answer & {
   src: string;
   genre: string;
 }
 
-export type ArtistAnswer = {
+export type ArtistAnswer = Answer & {
   artist: string;
   picture: string;
 }

@@ -34,23 +34,18 @@ function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
       <section className="game__screen">
         <h2 className="game__title">Выберите {genre} треки</h2>
         <form className="game__tracks">
-          {answers.map((answer, index) => {
-            const key = `${index}-${answer.src}`;
-            const id = `answer-${index}`;
-
-            return (
-              <div className="track" key={key}>
-                <button className="track__button track__button--play" type="button"></button>
-                <div className="track__status">
-                  <audio src={answer.src}></audio>
-                </div>
-                <div className="game__answer">
-                  <input className="game__input visually-hidden" type="checkbox" name="answer" value={id} id={id}/>
-                  <label className="game__check" htmlFor={id}>Отметить</label>
-                </div>
+          {answers.map((answer) => (
+            <div className="track" key={answer._id}>
+              <button className="track__button track__button--play" type="button"></button>
+              <div className="track__status">
+                <audio src={answer.src}></audio>
               </div>
-            );
-          })}
+              <div className="game__answer">
+                <input className="game__input visually-hidden" type="checkbox" name="answer" value={answer._id} id={answer._id}/>
+                <label className="game__check" htmlFor={answer._id}>Отметить</label>
+              </div>
+            </div>
+          ))}
 
           <button className="game__submit button" type="submit">Ответить</button>
         </form>
