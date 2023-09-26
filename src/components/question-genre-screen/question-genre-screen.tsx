@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../logo/logo';
 import { QuestionGenre } from '../../types/question';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { FormDataState, Id } from '../../types/common';
 
 type QuestionGenreScreenProps = {
@@ -42,7 +42,7 @@ function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
 
       <section className="game__screen">
         <h2 className="game__title">Выберите {genre} треки</h2>
-        <form className="game__tracks" onSubmit={(event) => {
+        <form className="game__tracks" onSubmit={(event: FormEvent) => {
           event.preventDefault();
           onAnswer();
         }}
@@ -57,7 +57,7 @@ function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
                   <audio src={answer.src}></audio>
                 </div>
                 <div className="game__answer">
-                  <input className="game__input visually-hidden" type="checkbox" name="answer" value={answer._id} id={answer._id} checked={checked} onChange={(event) => onChange(event, answer._id)}/>
+                  <input className="game__input visually-hidden" type="checkbox" name="answer" value={answer._id} id={answer._id} checked={checked} onChange={(event: ChangeEvent<HTMLInputElement>) => onChange(event, answer._id)}/>
                   <label className="game__check" htmlFor={answer._id}>Отметить</label>
                 </div>
               </div>

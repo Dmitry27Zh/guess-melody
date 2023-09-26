@@ -9,7 +9,7 @@ import WinScreen from '../win-screen/win-screen';
 import GameOverScreen from '../game-over-screen/game-over-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import { QuestionGenre, Questions } from '../../types/question';
+import { QuestionArtist, QuestionGenre, Questions } from '../../types/question';
 
 type AppProps = {
   errorsCount: number;
@@ -17,14 +17,22 @@ type AppProps = {
 }
 
 function App({errorsCount, questions}: AppProps): JSX.Element {
-  const [firstQuestion] = questions;
+  const [firstQuestion, secondQuestion] = questions;
 
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route path={AppRoute.Root} element={<WelcomeScreen errorsCount={errorsCount} />}/>
-          <Route path={AppRoute.DevArtist} element={<QuestionArtistScreen />}/>
+          <Route path={AppRoute.DevArtist} element={
+            <QuestionArtistScreen
+              question={secondQuestion as QuestionArtist}
+              onAnswer={() => {
+                throw new Error('Function is not implemented!');
+              }}
+            />
+          }
+          />
           <Route path={AppRoute.DevGenre} element={
             <QuestionGenreScreen
               question={firstQuestion as QuestionGenre}
