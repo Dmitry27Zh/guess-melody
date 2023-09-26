@@ -9,12 +9,14 @@ import WinScreen from '../win-screen/win-screen';
 import GameOverScreen from '../game-over-screen/game-over-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
+import { Questions } from '../../types/question';
 
 type AppProps = {
   errorsCount: number;
+  questions: Questions;
 }
 
-function App({errorsCount}: AppProps): JSX.Element {
+function App({errorsCount, questions}: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
