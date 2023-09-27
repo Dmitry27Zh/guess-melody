@@ -63,7 +63,6 @@ function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
               </div>
             );
           })}
-
           <button className="game__submit button" type="submit">Ответить</button>
         </form>
       </section>
