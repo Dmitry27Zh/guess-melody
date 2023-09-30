@@ -1,11 +1,11 @@
-import { Id } from './common';
+import { Id, Src } from './common';
 
 export type Answer = {
   _id: Id;
 }
 
 export type GenreAnswer = Answer & {
-  src: string;
+  src: Src;
   genre: string;
 }
 
@@ -16,7 +16,7 @@ export type ArtistAnswer = Answer & {
 
 export type Song = {
   artist: string;
-  src: string;
+  src: Src;
 }
 
 export type QuestionGenre = {

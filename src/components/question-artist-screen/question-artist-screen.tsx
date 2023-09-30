@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import Logo from '../logo/logo';
 import { QuestionArtist } from '../../types/question';
 import { FormEvent } from 'react';
+import AudioPlayer from '../audio-player/audio-player';
 
 type QuestionArtistScreenProps = {
   question: QuestionArtist;
@@ -37,7 +38,7 @@ function QuestionArtistScreen(props: QuestionArtistScreenProps): JSX.Element {
           <div className="track">
             <button className="track__button track__button--play" type="button"></button>
             <div className="track__status">
-              <audio src={song.src}></audio>
+              <AudioPlayer src={song.src} />
             </div>
           </div>
         </div>
