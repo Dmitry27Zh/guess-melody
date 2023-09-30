@@ -4,11 +4,12 @@ import cn from 'classnames';
 
 type AudioPlayerProps = {
   src: Src;
+  autoPlay: boolean;
 }
 
-function AudioPlayer({src}: AudioPlayerProps):JSX.Element {
+function AudioPlayer({src, autoPlay}: AudioPlayerProps):JSX.Element {
   const [isLoading, setIsLoading] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const handleDataLoaded = () => {
     setIsLoading(false);
