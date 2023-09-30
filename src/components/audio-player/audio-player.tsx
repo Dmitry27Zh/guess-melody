@@ -5,7 +5,15 @@ type AudioPlayerProps = {
 }
 
 function AudioPlayer({src}: AudioPlayerProps):JSX.Element {
-  return <audio src={src}></audio>;
+  return (
+    <>
+      <button className="track__button track__button--play" type="button"></button>
+      <div className="track__status">
+        <audio src={src}></audio>;
+      </div>
+    </>
+  );
+
 }
 
 export default AudioPlayer;

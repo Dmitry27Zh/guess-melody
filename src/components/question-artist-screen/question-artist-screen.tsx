@@ -36,10 +36,7 @@ function QuestionArtistScreen(props: QuestionArtistScreenProps): JSX.Element {
         <h2 className="game__title">Кто исполняет эту песню?</h2>
         <div className="game__track">
           <div className="track">
-            <button className="track__button track__button--play" type="button"></button>
-            <div className="track__status">
-              <AudioPlayer src={song.src} />
-            </div>
+            <AudioPlayer src={song.src}/>
           </div>
         </div>
 

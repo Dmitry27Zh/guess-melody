@@ -53,10 +53,7 @@ function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
 
             return (
               <div className="track" key={answer._id}>
-                <button className="track__button track__button--play" type="button"></button>
-                <div className="track__status">
-                  <AudioPlayer src={answer.src}/>
-                </div>
+                <AudioPlayer src={answer.src}/>
                 <div className="game__answer">
                   <input className="game__input visually-hidden" type="checkbox" name="answer" value={answer._id} id={answer._id} checked={checked} onChange={(event: ChangeEvent<HTMLInputElement>) => onChange(event, answer._id)}/>
                   <label className="game__check" htmlFor={answer._id}>Отметить</label>
