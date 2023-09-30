@@ -4,7 +4,7 @@ import {useState} from 'react';
 import AudioPlayer from '../../components/audio-player/audio-player';
 
 type HOCProps = {
-  renderPlayer: (src: Src, id: Id) => void;
+  renderPlayer: (src: Src, id: Id) => JSX.Element;
 }
 
 function withAudioPlayer<T>(Component: ComponentType<T>): ComponentType<Omit<T, keyof HOCProps>> {
