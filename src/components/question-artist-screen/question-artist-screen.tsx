@@ -2,18 +2,17 @@ import { Helmet } from 'react-helmet-async';
 import Logo from '../logo/logo';
 import { QuestionArtist } from '../../types/question';
 import { FormEvent } from 'react';
-import AudioPlayer from '../audio-player/audio-player';
-import {useState} from 'react';
+import { Id, Src } from '../../types/common';
 
 type QuestionArtistScreenProps = {
   question: QuestionArtist;
   onAnswer: () => void;
+  renderPlayer: (src: Src, id: Id) => JSX.Element;
 }
 
 function QuestionArtistScreen(props: QuestionArtistScreenProps): JSX.Element {
-  const { question, onAnswer } = props;
+  const { question, onAnswer, renderPlayer } = props;
   const { song, answers } = question;
-  const [isPlaying, setIsPlaying] = useState(false);
 
   return (
     <section className="game game--artist">
@@ -38,7 +37,7 @@ function QuestionArtistScreen(props: QuestionArtistScreenProps): JSX.Element {
         <h2 className="game__title">Кто исполняет эту песню?</h2>
         <div className="game__track">
           <div className="track">
-            <AudioPlayer src={song.src} isPlaying={isPlaying} onPlayButtonClick={() => setIsPlaying(!isPlaying)}/>
+            {renderPlayer(song.src, '0')}
           </div>
         </div>
 
