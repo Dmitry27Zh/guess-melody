@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Src } from '../../types/common';
+import cn from 'classnames';
 
 type AudioPlayerProps = {
   src: Src;
@@ -39,7 +40,11 @@ function AudioPlayer({src}: AudioPlayerProps):JSX.Element {
 
   return (
     <>
-      <button className={`track__button track__button--${isPlaying ? 'pause' : 'play'}`} type="button" disabled={isLoading} onClick={() => setIsPlaying((prevState) => !prevState)}></button>
+      <button
+        className={cn('track__button', { 'track__button--play': !isPlaying }, { 'track__button--pause': isPlaying })}
+        type="button" disabled={isLoading} onClick={() => setIsPlaying((prevState) => !prevState)}
+      >
+      </button>
       <div className="track__status">
         <audio ref={audioRef} src={src}></audio>;
       </div>
