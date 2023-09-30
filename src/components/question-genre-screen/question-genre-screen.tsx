@@ -15,6 +15,7 @@ function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
   const { genre, answers } = question;
   const initialAnswerControls: FormDataState = answers.reduce((result, {_id}) => ({...result, [_id]: false}), {});
   const [answerControls, setAnswerControls] = useState(initialAnswerControls);
+  const [activePlayer, setActivePlayer] = useState('0');
   const onChange = ({target}: ChangeEvent<HTMLInputElement>, id: Id) => {
     const value = target.checked;
     setAnswerControls((prevState) => ({...prevState, [id]: value}));
@@ -53,7 +54,9 @@ function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
 
             return (
               <div className="track" key={answer._id}>
-                <AudioPlayer src={answer.src} autoPlay={answer._id === '0'}/>
+                <AudioPlayer src={answer.src} isPlaying={answer._id === activePlayer}
+                  onPlayButtonClick={() => setActivePlayer(activePlayer === answer._id ? '_PAUSE' : answer._id)}
+                />
                 <div className="game__answer">
                   <input className="game__input visually-hidden" type="checkbox" name="answer" value={answer._id} id={answer._id} checked={checked} onChange={(event: ChangeEvent<HTMLInputElement>) => onChange(event, answer._id)}/>
                   <label className="game__check" htmlFor={answer._id}>Отметить</label>

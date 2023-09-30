@@ -4,12 +4,12 @@ import cn from 'classnames';
 
 type AudioPlayerProps = {
   src: Src;
-  autoPlay: boolean;
+  isPlaying: boolean;
+  onPlayButtonClick: () => void;
 }
 
-function AudioPlayer({src, autoPlay}: AudioPlayerProps):JSX.Element {
+function AudioPlayer({src, isPlaying, onPlayButtonClick}: AudioPlayerProps):JSX.Element {
   const [isLoading, setIsLoading] = useState(true);
-  const [isPlaying, setIsPlaying] = useState(autoPlay);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const handleDataLoaded = () => {
     setIsLoading(false);
@@ -43,7 +43,7 @@ function AudioPlayer({src, autoPlay}: AudioPlayerProps):JSX.Element {
     <>
       <button
         className={cn('track__button', { 'track__button--play': !isPlaying }, { 'track__button--pause': isPlaying })}
-        type="button" disabled={isLoading} onClick={() => setIsPlaying((prevState) => !prevState)}
+        type="button" disabled={isLoading} onClick={onPlayButtonClick}
       >
       </button>
       <div className="track__status">
