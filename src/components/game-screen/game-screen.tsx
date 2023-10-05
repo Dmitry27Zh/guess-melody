@@ -6,11 +6,8 @@ import { QuestionArtist } from '../../types/question';
 import { AppRoute, GameType } from '../../const';
 import { Navigate } from 'react-router-dom';
 import withAudioPlayer from '../../hocs/with-audio-player/with-audio-player';
-import { useDispatch } from 'react-redux';
 import { incrementStep } from '../../store/action';
-import { IncrementStepAction } from '../../types/action';
-import { useSelector } from 'react-redux';
-import { State } from '../../types/state';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 
 type GameScreenProps = {
   questions: Question[];
@@ -20,16 +17,16 @@ const QuestionArtistScreenWrapped = withAudioPlayer(QuestionArtistScreen);
 const QuestionGenreScreenWrapped = withAudioPlayer(QuestionGenreScreen);
 
 function GameScreen({questions}: GameScreenProps):JSX.Element {
-  const step = useSelector<State>((state) => state.step) as number;
+  const step = useAppSelector((state) => state.step);
   const question = questions[step];
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const onAnswer = () => {
     const isGameOver = step === questions.length - 1;
 
     if (isGameOver) {
       <Navigate to={AppRoute.Root} />;
     } else {
-      dispatch<IncrementStepAction>(incrementStep());
+      dispatch(incrementStep());
     }
   };
 
