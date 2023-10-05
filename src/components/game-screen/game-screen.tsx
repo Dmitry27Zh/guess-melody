@@ -8,6 +8,7 @@ import { Navigate } from 'react-router-dom';
 import withAudioPlayer from '../../hocs/with-audio-player/with-audio-player';
 import { incrementStep } from '../../store/action';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import Mistakes from '../mistakes/mistakes';
 
 type GameScreenProps = {
   questions: Question[];
@@ -18,6 +19,7 @@ const QuestionGenreScreenWrapped = withAudioPlayer(QuestionGenreScreen);
 
 function GameScreen({questions}: GameScreenProps):JSX.Element {
   const step = useAppSelector((state) => state.step);
+  const mistakes = useAppSelector((state) => state.mistakes);
   const question = questions[step];
   const dispatch = useAppDispatch();
   const onAnswer = () => {
@@ -36,14 +38,18 @@ function GameScreen({questions}: GameScreenProps):JSX.Element {
         <QuestionGenreScreenWrapped
           question={question as QuestionGenre}
           onAnswer={onAnswer}
-        />
+        >
+          <Mistakes count={mistakes}/>
+        </QuestionGenreScreenWrapped>
       );
     case GameType.Artist:
       return (
         <QuestionArtistScreenWrapped
           question={question as QuestionArtist}
           onAnswer={onAnswer}
-        />);
+        >
+          <Mistakes count={mistakes}/>
+        </QuestionArtistScreenWrapped>);
     default:
       return <Navigate to={AppRoute.Root}/>;
   }

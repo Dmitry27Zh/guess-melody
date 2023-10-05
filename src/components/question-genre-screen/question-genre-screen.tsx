@@ -1,17 +1,17 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../logo/logo';
 import { QuestionGenre } from '../../types/question';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, PropsWithChildren, useState } from 'react';
 import { FormDataState, Id, Src } from '../../types/common';
 
-type QuestionGenreScreenProps = {
+type QuestionGenreScreenProps = PropsWithChildren<{
   question: QuestionGenre;
   onAnswer: () => void;
   renderPlayer: (src: Src, id: Id) => JSX.Element;
-}
+}>
 
 function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
-  const { question, onAnswer, renderPlayer } = props;
+  const { question, onAnswer, renderPlayer, children } = props;
   const { genre, answers } = question;
   const initialAnswerControls: FormDataState = answers.reduce((result, {_id}) => ({...result, [_id]: false}), {});
   const [answerControls, setAnswerControls] = useState(initialAnswerControls);
@@ -34,11 +34,7 @@ function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
           />
         </svg>
 
-        <div className="game__mistakes">
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-        </div>
+        {children}
       </header>
 
       <section className="game__screen">

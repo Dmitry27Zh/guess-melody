@@ -1,17 +1,17 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../logo/logo';
 import { QuestionArtist } from '../../types/question';
-import { FormEvent } from 'react';
+import { FormEvent, PropsWithChildren } from 'react';
 import { Id, Src } from '../../types/common';
 
-type QuestionArtistScreenProps = {
+type QuestionArtistScreenProps = PropsWithChildren<{
   question: QuestionArtist;
   onAnswer: () => void;
   renderPlayer: (src: Src, id: Id) => JSX.Element;
-}
+}>
 
 function QuestionArtistScreen(props: QuestionArtistScreenProps): JSX.Element {
-  const { question, onAnswer, renderPlayer } = props;
+  const { question, onAnswer, renderPlayer, children } = props;
   const { song, answers } = question;
 
   return (
@@ -26,11 +26,7 @@ function QuestionArtistScreen(props: QuestionArtistScreenProps): JSX.Element {
           <circle className="timer__line" cx="390" cy="390" r="370" style={{filter: 'url(#blur)', transform: 'rotate(-90deg) scaleY(-1)', transformOrigin: 'center'}} />
         </svg>
 
-        <div className="game__mistakes">
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-          <div className="wrong"></div>
-        </div>
+        {children}
       </header>
 
       <section className="game__screen">
