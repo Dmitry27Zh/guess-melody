@@ -1,12 +1,16 @@
-import { useState } from 'react';
 import { Question } from '../../types/question';
 import QuestionArtistScreen from '../question-artist-screen/question-artist-screen';
 import QuestionGenreScreen from '../question-genre-screen/question-genre-screen';
 import { QuestionGenre } from '../../types/question';
 import { QuestionArtist } from '../../types/question';
-import { AppRoute, FIRST_GAME_STEP, GameType } from '../../const';
+import { AppRoute, GameType } from '../../const';
 import { Navigate } from 'react-router-dom';
 import withAudioPlayer from '../../hocs/with-audio-player/with-audio-player';
+import { useDispatch } from 'react-redux';
+import { incrementStep } from '../../store/action';
+import { IncrementStepAction } from '../../types/action';
+import { useSelector } from 'react-redux';
+import { State } from '../../types/state';
 
 type GameScreenProps = {
   questions: Question[];
@@ -16,15 +20,16 @@ const QuestionArtistScreenWrapped = withAudioPlayer(QuestionArtistScreen);
 const QuestionGenreScreenWrapped = withAudioPlayer(QuestionGenreScreen);
 
 function GameScreen({questions}: GameScreenProps):JSX.Element {
-  const [step, setStep] = useState(FIRST_GAME_STEP);
+  const step = useSelector<State>((state) => state.step) as number;
   const question = questions[step];
+  const dispatch = useDispatch();
   const onAnswer = () => {
     const isGameOver = step === questions.length - 1;
 
     if (isGameOver) {
       <Navigate to={AppRoute.Root} />;
     } else {
-      setStep((prevState) => prevState + 1);
+      dispatch<IncrementStepAction>(incrementStep());
     }
   };
 
