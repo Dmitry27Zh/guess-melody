@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
-const store = configureStore({
+export const store = configureStore({
   reducer,
 });
 

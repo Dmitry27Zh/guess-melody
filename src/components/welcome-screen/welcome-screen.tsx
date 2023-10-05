@@ -1,9 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { useDispatch } from 'react-redux';
 import { resetGame } from '../../store/action';
-import { ResetGameAction } from '../../types/action';
+import { useAppDispatch } from '../../hooks';
 
 type WelcomeScreenProps = {
   errorsCount: number;
@@ -11,7 +10,7 @@ type WelcomeScreenProps = {
 
 function WelcomeScreen({errorsCount}: WelcomeScreenProps): JSX.Element {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <section className="welcome">
@@ -20,7 +19,7 @@ function WelcomeScreen({errorsCount}: WelcomeScreenProps): JSX.Element {
       </Helmet>
       <div className="welcome__logo"><img src="img/melody-logo.png" alt="Угадай мелодию" width="186" height="83"/></div>
       <button className="welcome__button" onClick={() => {
-        dispatch<ResetGameAction>(resetGame());
+        dispatch(resetGame());
         navigate(AppRoute.Game);
       }}
       ><span className="visually-hidden">Начать игру</span>
