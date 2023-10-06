@@ -1,4 +1,5 @@
 import { FIRST_GAME_STEP } from '../const';
+import { isAnswerCorrect } from '../game';
 import { ActionType, Actions } from '../types/action';
 
 const initialState = {
@@ -16,6 +17,12 @@ const reducer = (state = initialState, action: Actions) => {
       return {...state, step: state.step + STEP_COUNT};
     case ActionType.ResetGame:
       return {...initialState};
+    case ActionType.CheckUserAnswer: {
+      const {question, userAnswer} = action.payload;
+      const mistakes = state.mistakes + Number(!isAnswerCorrect(question, userAnswer));
+
+      return {...state, mistakes};
+    }
     default:
       return state;
   }

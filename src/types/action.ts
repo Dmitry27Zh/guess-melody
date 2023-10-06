@@ -4,7 +4,7 @@ export enum ActionType {
   IncrementMistake = 'game/incrementMistake',
   IncrementStep = 'game/incrementStep',
   ResetGame = 'game/resetGame',
-  CheckAnswer = 'game/checkAnswer'
+  CheckUserAnswer = 'game/checkUserAnswer'
 }
 
 export type IncrementMistakeAction = {
@@ -21,11 +21,11 @@ export type ResetGameAction = {
 }
 
 export type CheckAnswerAction = {
-  type: ActionType.CheckAnswer;
+  type: ActionType.CheckUserAnswer;
   payload: {
     question: Question;
     userAnswer: UserAnswer;
   };
 }
 
-export type Actions = IncrementMistakeAction | IncrementStepAction | ResetGameAction
+export type Actions = IncrementMistakeAction | IncrementStepAction | ResetGameAction | CheckAnswerAction
