@@ -1,4 +1,4 @@
-import { Question, UserAnswer } from './question';
+import { checkAnswer, incrementMistake, incrementStep, resetGame } from '../store/action';
 
 export enum ActionType {
   IncrementMistake = 'game/incrementMistake',
@@ -7,25 +7,4 @@ export enum ActionType {
   CheckUserAnswer = 'game/checkUserAnswer'
 }
 
-export type IncrementMistakeAction = {
-  type: ActionType.IncrementMistake;
-  payload: number;
-}
-
-export type IncrementStepAction = {
-  type: ActionType.IncrementStep;
-}
-
-export type ResetGameAction = {
-  type: ActionType.ResetGame;
-}
-
-export type CheckAnswerAction = {
-  type: ActionType.CheckUserAnswer;
-  payload: {
-    question: Question;
-    userAnswer: UserAnswer;
-  };
-}
-
-export type Actions = IncrementMistakeAction | IncrementStepAction | ResetGameAction | CheckAnswerAction
+export type Actions = ReturnType<typeof incrementMistake> | ReturnType<typeof incrementStep> | ReturnType<typeof resetGame> | ReturnType<typeof checkAnswer>
