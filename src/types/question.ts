@@ -22,15 +22,21 @@ export type Song = {
 export type QuestionGenre = {
   answers: GenreAnswer[];
   genre: string;
-  type: string;
+  type: 'genre';
 }
 
 export type QuestionArtist = {
   answers: ArtistAnswer[];
-  type: string;
+  type: 'artist';
   song: Song;
 }
 
 export type Question = QuestionGenre | QuestionArtist
 
 export type Questions = Question[]
+
+export type UserGenreAnswer = readonly boolean[]
+
+export type UserArtistAnswer = string
+
+export type UserAnswer = UserGenreAnswer | UserArtistAnswer
