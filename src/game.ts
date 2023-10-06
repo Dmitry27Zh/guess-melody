@@ -17,5 +17,5 @@ export const isAnswerCorrect = (question: Question, userAnswer: UserAnswer): boo
     return userAnswer.every((answer, index) => answer === (question.answers[index].genre === question.genre));
   }
 
-  return false;
+  throw new Error('Unknown question type');
 };
