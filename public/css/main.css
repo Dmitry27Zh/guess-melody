@@ -593,7 +593,8 @@ legend, td, th {
   border: solid 5px #230d1a;
   border-radius: 134px; }
 
-.artist:hover .artist__picture, .artist__input:focus+.artist__name .artist__picture {
+.artist:hover .artist__picture, .artist__input:focus+.artist__name .artist__picture,
+.artist__input:checked+.artist__name .artist__picture {
   border-color: #ff9749; }
 
 .artist:active .artist__picture {
