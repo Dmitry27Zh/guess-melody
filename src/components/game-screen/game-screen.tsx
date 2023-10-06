@@ -1,12 +1,10 @@
-import { Question } from '../../types/question';
+import { Question, UserAnswer } from '../../types/question';
 import QuestionArtistScreen from '../question-artist-screen/question-artist-screen';
 import QuestionGenreScreen from '../question-genre-screen/question-genre-screen';
-import { QuestionGenre } from '../../types/question';
-import { QuestionArtist } from '../../types/question';
 import { AppRoute, GameType } from '../../const';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import withAudioPlayer from '../../hocs/with-audio-player/with-audio-player';
-import { incrementStep } from '../../store/action';
+import { checkAnswer, incrementStep } from '../../store/action';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Mistakes from '../mistakes/mistakes';
 
@@ -22,11 +20,13 @@ function GameScreen({questions}: GameScreenProps):JSX.Element {
   const mistakes = useAppSelector((state) => state.mistakes);
   const question = questions[step];
   const dispatch = useAppDispatch();
-  const onAnswer = () => {
+  const navigate = useNavigate();
+  const onAnswer = (userAnswer: UserAnswer) => {
     const isGameOver = step === questions.length - 1;
+    dispatch(checkAnswer(question, userAnswer));
 
     if (isGameOver) {
-      <Navigate to={AppRoute.Root} />;
+      navigate(AppRoute.Root);
     } else {
       dispatch(incrementStep());
     }
@@ -36,7 +36,7 @@ function GameScreen({questions}: GameScreenProps):JSX.Element {
     case GameType.Genre:
       return (
         <QuestionGenreScreenWrapped
-          question={question as QuestionGenre}
+          question={question}
           onAnswer={onAnswer}
         >
           <Mistakes count={mistakes}/>
@@ -45,7 +45,7 @@ function GameScreen({questions}: GameScreenProps):JSX.Element {
     case GameType.Artist:
       return (
         <QuestionArtistScreenWrapped
-          question={question as QuestionArtist}
+          question={question}
           onAnswer={onAnswer}
         >
           <Mistakes count={mistakes}/>

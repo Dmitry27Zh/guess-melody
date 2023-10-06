@@ -1,13 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../logo/logo';
-import { QuestionGenre } from '../../types/question';
+import { QuestionGenre, UserGenreAnswer } from '../../types/question';
 import { FormEvent, PropsWithChildren } from 'react';
 import { FormDataState, Id, Src } from '../../types/common';
 import useData from '../../hooks/use-data/use-data';
 
 type QuestionGenreScreenProps = PropsWithChildren<{
   question: QuestionGenre;
-  onAnswer: () => void;
+  onAnswer: (userAnswer: UserGenreAnswer) => void;
   renderPlayer: (src: Src, id: Id) => JSX.Element;
 }>
 
@@ -38,7 +38,7 @@ function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
         <h2 className="game__title">Выберите {genre} треки</h2>
         <form className="game__tracks" onSubmit={(event: FormEvent) => {
           event.preventDefault();
-          onAnswer();
+          onAnswer(Object.values(data) as UserGenreAnswer);
         }}
         >
           {answers.map((answer) => {
