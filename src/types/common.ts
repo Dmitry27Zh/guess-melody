@@ -2,6 +2,6 @@ export type Id = string
 
 export type Src = string
 
-export type FormDataState = {
-  [name: Id]: string | number | boolean;
+export type FormDataState<T = string | number | boolean> = {
+  [name: Id]: T;
 }

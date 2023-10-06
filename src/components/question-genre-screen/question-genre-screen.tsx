@@ -1,8 +1,9 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../logo/logo';
 import { QuestionGenre } from '../../types/question';
-import { ChangeEvent, FormEvent, PropsWithChildren, useState } from 'react';
+import { FormEvent, PropsWithChildren } from 'react';
 import { FormDataState, Id, Src } from '../../types/common';
+import useData from '../../hooks/use-data/use-data';
 
 type QuestionGenreScreenProps = PropsWithChildren<{
   question: QuestionGenre;
@@ -13,12 +14,8 @@ type QuestionGenreScreenProps = PropsWithChildren<{
 function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
   const { question, onAnswer, renderPlayer, children } = props;
   const { genre, answers } = question;
-  const initialAnswerControls: FormDataState = answers.reduce((result, {_id}) => ({...result, [_id]: false}), {});
-  const [answerControls, setAnswerControls] = useState(initialAnswerControls);
-  const onChange = ({target}: ChangeEvent<HTMLInputElement>, id: Id) => {
-    const value = target.checked;
-    setAnswerControls((prevState) => ({...prevState, [id]: value}));
-  };
+  const initialData: FormDataState<boolean> = answers.reduce((result, {_id}) => ({...result, [_id]: false}), {});
+  const [data, onChange] = useData(initialData);
 
   return (
     <section className="game game--genre">
@@ -45,17 +42,21 @@ function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
         }}
         >
           {answers.map((answer) => {
-            const checked = answerControls[answer._id] as boolean;
+            const checked = data[answer._id] ;
 
-            return (
-              <div className="track" key={answer._id}>
-                {renderPlayer(answer.src, answer._id)}
-                <div className="game__answer">
-                  <input className="game__input visually-hidden" type="checkbox" name="answer" value={answer._id} id={answer._id} checked={checked} onChange={(event: ChangeEvent<HTMLInputElement>) => onChange(event, answer._id)}/>
-                  <label className="game__check" htmlFor={answer._id}>Отметить</label>
+            if (typeof checked === 'boolean') {
+              return (
+                <div className="track" key={answer._id}>
+                  {renderPlayer(answer.src, answer._id)}
+                  <div className="game__answer">
+                    <input className="game__input visually-hidden" type="checkbox" name="answer" value={answer._id} id={answer._id} checked={checked} onChange={onChange}/>
+                    <label className="game__check" htmlFor={answer._id}>Отметить</label>
+                  </div>
                 </div>
-              </div>
-            );
+              );
+            } else {
+              return '';
+            }
           })}
           <button className="game__submit button" type="submit">Ответить</button>
         </form>

@@ -10,7 +10,7 @@ type HOCProps = {
 function withAudioPlayer<T>(Component: ComponentType<T>): ComponentType<Omit<T, keyof HOCProps>> {
   type ComponentProps = Omit<T, keyof HOCProps>
 
-  function WithAudioPlayer(props: ComponentProps):JSX.Element {
+  function WithAudioPlayer(props: ComponentProps): JSX.Element {
     const [activePlayer, setActivePlayer] = useState('0');
 
     return (

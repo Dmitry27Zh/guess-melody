@@ -3,6 +3,8 @@ import Logo from '../logo/logo';
 import { QuestionArtist } from '../../types/question';
 import { FormEvent, PropsWithChildren } from 'react';
 import { Id, Src } from '../../types/common';
+import { FormDataState } from '../../types/common';
+import useData from '../../hooks/use-data/use-data';
 
 type QuestionArtistScreenProps = PropsWithChildren<{
   question: QuestionArtist;
@@ -13,6 +15,8 @@ type QuestionArtistScreenProps = PropsWithChildren<{
 function QuestionArtistScreen(props: QuestionArtistScreenProps): JSX.Element {
   const { question, onAnswer, renderPlayer, children } = props;
   const { song, answers } = question;
+  const initialData: FormDataState<boolean> = answers.reduce((result, {_id}) => ({...result, [_id]: false}), {});
+  const [data, onChange] = useData(initialData);
 
   return (
     <section className="game game--artist">
@@ -43,15 +47,24 @@ function QuestionArtistScreen(props: QuestionArtistScreenProps): JSX.Element {
             onAnswer();
           }}
         >
-          {answers.map((answer) => (
-            <div className="artist" key={answer._id}>
-              <input className="artist__input visually-hidden" type="radio" name="answer" value={answer._id} id={answer._id}/>
-              <label className="artist__name" htmlFor={answer._id}>
-                <img className="artist__picture" src={answer.picture} alt={answer.artist}/>
-                {answer.artist}
-              </label>
-            </div>
-          ))}
+          {answers.map((answer) => {
+            const checked = data[answer._id];
+
+            if (typeof checked === 'boolean') {
+              return (
+                <div className="artist" key={answer._id}>
+                  <input className="artist__input visually-hidden" type="radio" name="answer" value={answer._id} id={answer._id} checked={checked} onChange={onChange}/>
+                  <label className="artist__name" htmlFor={answer._id}>
+                    <img className="artist__picture" src={answer.picture} alt={answer.artist}/>
+                    {answer.artist}
+                  </label>
+                </div>
+              );
+            } else {
+              return '';
+            }
+
+          })}
         </form>
       </section>
     </section>
