@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import Logo from '../logo/logo';
 import { QuestionGenre, UserGenreAnswer } from '../../types/question';
 import { FormEvent, PropsWithChildren } from 'react';
-import { FormDataState, Id, Src } from '../../types/common';
+import { FormDataState, Id, Src, isBooleanFormDataState } from '../../types/common';
 import useData from '../../hooks/use-data/use-data';
 
 type QuestionGenreScreenProps = PropsWithChildren<{
@@ -38,7 +38,11 @@ function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
         <h2 className="game__title">Выберите {genre} треки</h2>
         <form className="game__tracks" onSubmit={(event: FormEvent) => {
           event.preventDefault();
-          onAnswer(Object.values(data) as UserGenreAnswer);
+
+          if (isBooleanFormDataState(data)) {
+            const userAnswer = Object.values(data);
+            onAnswer(userAnswer);
+          }
         }}
         >
           {answers.map((answer) => {
