@@ -1,12 +1,13 @@
 import { questions } from './../mock/questions';
-import { FIRST_GAME_STEP } from '../const';
+import { AuthorizationStatus, FIRST_GAME_STEP } from '../const';
 import { isAnswerCorrect } from '../game';
 import { ActionType, Actions } from '../types/action';
 
 const initialState = {
   mistakes: 0,
   step: FIRST_GAME_STEP,
-  questions
+  questions,
+  authorizationStatus: AuthorizationStatus.Unknown
 };
 
 const STEP_COUNT = 1;
@@ -26,7 +27,9 @@ const reducer = (state = initialState, action: Actions) => {
       return {...state, mistakes};
     }
     case ActionType.LoadQuestions:
-      return {...state, questions: action.payload.questions};
+      return {...state, questions: action.payload};
+    case ActionType.RequireAuthorization:
+      return {...state, authorizationStatus: action.payload};
     default:
       return state;
   }
