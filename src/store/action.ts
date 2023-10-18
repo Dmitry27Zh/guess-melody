@@ -1,5 +1,5 @@
 import { ActionType } from '../types/action';
-import { Question, UserAnswer } from '../types/question';
+import { Question, Questions, UserAnswer } from '../types/question';
 
 export const incrementMistake = (count: number) => ({
   type: ActionType.IncrementMistake,
@@ -21,3 +21,10 @@ export const checkAnswer = (question: Question, userAnswer: UserAnswer) => ({
     userAnswer,
   }
 } as const);
+
+export const loadQuestions = (questions: Questions) => ({
+  type: ActionType.LoadQuestions,
+  payload: {
+    questions
+  }
+}) as const;
