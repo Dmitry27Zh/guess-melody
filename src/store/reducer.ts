@@ -1,12 +1,19 @@
-import { questions } from './../mock/questions';
 import { AuthorizationStatus, FIRST_GAME_STEP } from '../const';
 import { isAnswerCorrect } from '../game';
 import { ActionType, Actions } from '../types/action';
+import { Questions } from '../types/question';
 
-const initialState = {
+type InitialState = {
+  mistakes: number;
+  step: number;
+  questions: Questions;
+  authorizationStatus: AuthorizationStatus;
+}
+
+const initialState: InitialState = {
   mistakes: 0,
   step: FIRST_GAME_STEP,
-  questions,
+  questions: [],
   authorizationStatus: AuthorizationStatus.Unknown
 };
 
