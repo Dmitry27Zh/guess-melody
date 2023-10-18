@@ -26,7 +26,7 @@ const reducer = (state = initialState, action: Actions) => {
       return {...state, mistakes};
     }
     case ActionType.LoadQuestions:
-      return {...state, questions: action.payload};
+      return {...state, questions: action.payload.questions};
     default:
       return state;
   }

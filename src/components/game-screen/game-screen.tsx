@@ -25,7 +25,7 @@ function GameScreen():JSX.Element {
   }
 
   if (isGameOver) {
-    return <Navigate to={AppRoute.Root}></Navigate>;
+    return <Navigate to={AppRoute.Result}></Navigate>;
   }
 
   const onAnswer = (userAnswer: UserAnswer) => {
