@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { getToken } from './token';
-import { store } from '../store';
-import { setError } from '../store/action';
+import { processErrorHandle } from './process-error-handle';
+
 
 const BACKEND_URL = 'https://13.design.pages.academy/guess-melody';
 const REQUEST_TIMEOUT = 5000;
@@ -21,7 +21,7 @@ export const createAPI = (): AxiosInstance => {
     (error: AxiosError<AxiosErrorResponseData>) => {
       if (error.response) {
         const message = error.response.data.message;
-        store.dispatch(setError(message));
+        processErrorHandle(message);
       }
 
       return error;
