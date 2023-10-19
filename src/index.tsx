@@ -4,6 +4,7 @@ import App from './components/app/app';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { checkAuthStatus, fetchQuestionsAction } from './store/api-actions';
+import ErrorMessage from './components/error-message/error-message';
 
 store.dispatch(fetchQuestionsAction());
 store.dispatch(checkAuthStatus());
@@ -14,6 +15,9 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}><App /></Provider>
+    <Provider store={store}>
+      <ErrorMessage />
+      <App />
+    </Provider>
   </React.StrictMode>,
 );
