@@ -1,4 +1,7 @@
+import { ThunkAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { checkAnswer, incrementMistake, incrementStep, loadQuestions, requireAuthorization, resetGame } from '../store/action';
+import { State } from './state';
+import { AxiosInstance } from 'axios';
 
 export enum ActionType {
   IncrementMistake = 'game/incrementMistake',
@@ -9,4 +12,14 @@ export enum ActionType {
   RequireAuthorization = 'user/requireAuthorization'
 }
 
-export type Actions = ReturnType<typeof incrementMistake> | ReturnType<typeof incrementStep> | ReturnType<typeof resetGame> | ReturnType<typeof checkAnswer> | ReturnType<typeof loadQuestions> | ReturnType<typeof requireAuthorization>
+export type Actions = ReturnType<typeof incrementMistake>
+  | ReturnType<typeof incrementStep>
+  | ReturnType<typeof resetGame>
+  | ReturnType<typeof checkAnswer>
+  | ReturnType<typeof loadQuestions>
+  | ReturnType<typeof requireAuthorization>
+
+
+export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, State, AxiosInstance, Actions>
+
+export type ThunkAppDispatch = ThunkDispatch<State, AxiosInstance, Actions>
