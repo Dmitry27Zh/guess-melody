@@ -1,4 +1,4 @@
-import { AppRoute, AuthorizationStatus, MAX_MISTAKE_COUNT } from '../../const';
+import { AppRoute, MAX_MISTAKE_COUNT } from '../../const';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import WelcomeScreen from '../welcome-screen/welcome-screen';
@@ -13,6 +13,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 
 function App(): JSX.Element {
   const isQuestionsLoading = useAppSelector((state) => state.isQuestionsLoading);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   if (isQuestionsLoading) {
     return <LoadingScreen />;
@@ -25,7 +26,7 @@ function App(): JSX.Element {
           <Route path={AppRoute.Root} element={<WelcomeScreen errorsCount={MAX_MISTAKE_COUNT} />}/>
           <Route path={AppRoute.Game} element={<GameScreen />}/>
           <Route path={AppRoute.Login} element={<AuthScreen />} />
-          <Route path={AppRoute.Result} element={<PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}><WinScreen /></PrivateRoute>} />
+          <Route path={AppRoute.Result} element={<PrivateRoute authorizationStatus={authorizationStatus}><WinScreen /></PrivateRoute>} />
           <Route path={AppRoute.Lose} element={<GameOverScreen />} />
           <Route path='*' element={<NotFoundScreen />} />
         </Routes>
