@@ -1,6 +1,6 @@
 import { AuthorizationStatus } from '../const';
 import { ActionType } from '../types/action';
-import { Question, Questions, UserAnswer } from '../types/question';
+import { IsQuestionsLoading, Question, Questions, UserAnswer } from '../types/question';
 
 export const incrementMistake = (count: number) => ({
   type: ActionType.IncrementMistake,
@@ -31,4 +31,9 @@ export const loadQuestions = (questions: Questions) => ({
 export const requireAuthorization = (authorizationStatus: AuthorizationStatus) => ({
   type: ActionType.RequireAuthorization,
   payload: authorizationStatus
+}) as const;
+
+export const setIsQuestionsLoading = (isQuestionsLoading: IsQuestionsLoading) => ({
+  type: ActionType.SetIsQuestionsLoading,
+  payload: isQuestionsLoading
 }) as const;

@@ -8,8 +8,16 @@ import GameOverScreen from '../game-over-screen/game-over-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
 import GameScreen from '../game-screen/game-screen';
+import { useAppSelector } from '../../hooks';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 function App(): JSX.Element {
+  const isQuestionsLoading = useAppSelector((state) => state.isQuestionsLoading);
+
+  if (isQuestionsLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <HelmetProvider>
       <BrowserRouter>

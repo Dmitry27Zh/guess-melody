@@ -40,3 +40,5 @@ export type UserGenreAnswer = readonly boolean[]
 export type UserArtistAnswer = string
 
 export type UserAnswer = UserGenreAnswer | UserArtistAnswer
+
+export type IsQuestionsLoading = boolean
