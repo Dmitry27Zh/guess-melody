@@ -2,6 +2,7 @@ import { AuthorizationStatus, FIRST_GAME_STEP } from '../const';
 import { isAnswerCorrect } from '../game';
 import { ActionType, Actions } from '../types/action';
 import { IsQuestionsLoading, Questions } from '../types/question';
+import { Error } from '../types/state';
 
 type InitialState = {
   mistakes: number;
@@ -9,6 +10,7 @@ type InitialState = {
   questions: Questions;
   authorizationStatus: AuthorizationStatus;
   isQuestionsLoading: IsQuestionsLoading;
+  error: Error;
 }
 
 const initialState: InitialState = {
@@ -16,7 +18,8 @@ const initialState: InitialState = {
   step: FIRST_GAME_STEP,
   questions: [],
   authorizationStatus: AuthorizationStatus.Unknown,
-  isQuestionsLoading: false
+  isQuestionsLoading: false,
+  error: null
 };
 
 const STEP_COUNT = 1;
@@ -41,6 +44,8 @@ const reducer = (state = initialState, action: Actions) => {
       return {...state, authorizationStatus: action.payload};
     case ActionType.SetIsQuestionsLoading:
       return {...state, isQuestionsLoading: action.payload};
+    case ActionType.SetError:
+      return {...state, error: action.payload};
     default:
       return state;
   }
