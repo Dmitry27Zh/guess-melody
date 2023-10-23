@@ -1,6 +1,10 @@
 import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 function AuthScreen(): JSX.Element {
+  const navigate = useNavigate();
+
   return (
     <section className="login">
       <Helmet>
@@ -21,7 +25,7 @@ function AuthScreen(): JSX.Element {
         </p>
         <button className="login__button button" type="submit">Войти</button>
       </form>
-      <button className="replay" type="button">Сыграть ещё раз</button>
+      <button className="replay" type="button" onClick={() => navigate(AppRoute.Game)}>Сыграть ещё раз</button>
     </section>
   );
 }
