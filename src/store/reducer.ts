@@ -31,7 +31,7 @@ const reducer = (state = initialState, action: Actions) => {
     case ActionType.IncrementStep:
       return {...state, step: state.step + STEP_COUNT};
     case ActionType.ResetGame:
-      return {...initialState};
+      return {...initialState, questions: state.questions};
     case ActionType.CheckUserAnswer: {
       const {question, userAnswer} = action.payload;
       const mistakes = state.mistakes + Number(!isAnswerCorrect(question, userAnswer));
