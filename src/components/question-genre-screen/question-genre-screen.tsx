@@ -59,7 +59,7 @@ function QuestionGenreScreen(props: QuestionGenreScreenProps): JSX.Element {
                 </div>
               );
             } else {
-              return '';
+              throw new Error('Wrong checked value type');
             }
           })}
           <button className="game__submit button" type="submit">Ответить</button>
