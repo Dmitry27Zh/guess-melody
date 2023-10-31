@@ -68,7 +68,7 @@ function QuestionArtistScreen(props: QuestionArtistScreenProps): JSX.Element {
                 </div>
               );
             } else {
-              return '';
+              throw new Error('Wrong checked value type');
             }
           })}
           <button ref={buttonSubmitRef} className="game__submit button" type="submit" hidden>Ответить</button>
