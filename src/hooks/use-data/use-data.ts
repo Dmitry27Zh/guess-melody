@@ -1,19 +1,15 @@
-import { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent, useEffect } from 'react';
 import { FormDataState } from '../../types/common';
 import _ from 'lodash';
 
 type OnChange = (event: ChangeEvent<HTMLInputElement>) => void
 
 function useData(initialData: FormDataState): [FormDataState, OnChange] {
-  const [data, setData] = (() => {
-    let innerData: FormDataState = initialData;
+  const [data, setData] = useState<FormDataState>(initialData);
 
-    const setInnerData = (cb: (data: FormDataState) => FormDataState) => {
-      innerData = cb(innerData);
-    };
-
-    return [innerData, setInnerData];
-  })();
+  useEffect(() => {
+    setData(initialData);
+  }, [initialData]);
 
   const onChange: OnChange = ({target}) => {
     const isRadioCheckbox = target.type === 'radio' || target.type === 'checkbox';

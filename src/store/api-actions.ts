@@ -6,6 +6,7 @@ import { AuthData } from '../types/auth-data';
 import { Questions } from '../types/question';
 import { UserData } from '../types/user-data';
 import { loadQuestions, requireAuthorization, setIsQuestionsLoading } from './action';
+import { questions } from '../mock';
 
 
 export const fetchQuestionsAction = (): ThunkActionResult =>
@@ -13,6 +14,7 @@ export const fetchQuestionsAction = (): ThunkActionResult =>
     dispatch(setIsQuestionsLoading(true));
     const {data} = await api.get<Questions>(APIRoute.Questions);
     dispatch(loadQuestions(transformQuestions(data)));
+    // dispatch(loadQuestions(transformQuestions(questions as Questions)));
     dispatch(setIsQuestionsLoading(false));
   };
 

@@ -1,10 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../logo/logo';
 import { QuestionArtist, UserArtistAnswer } from '../../types/question';
-import { FormEvent, PropsWithChildren, useRef, ChangeEvent } from 'react';
+import { FormEvent, PropsWithChildren, useRef, ChangeEvent, useMemo } from 'react';
 import { Id, Src } from '../../types/common';
-import { FormDataState } from '../../types/common';
 import useData from '../../hooks/use-data/use-data';
+import { getQuestionInitialFormData } from '../../utils/form';
+
 
 type QuestionArtistScreenProps = PropsWithChildren<{
   question: QuestionArtist;
@@ -15,7 +16,7 @@ type QuestionArtistScreenProps = PropsWithChildren<{
 function QuestionArtistScreen(props: QuestionArtistScreenProps): JSX.Element {
   const { question, onAnswer, renderPlayer, children } = props;
   const { song, answers } = question;
-  const initialData: FormDataState<boolean> = answers.reduce((result, {_id}) => ({...result, [_id]: false}), {});
+  const initialData = useMemo(() => getQuestionInitialFormData(answers), [answers]);
   const [data, onChange] = useData(initialData);
   const buttonSubmitRef = useRef<HTMLButtonElement | null>(null);
 
@@ -51,7 +52,7 @@ function QuestionArtistScreen(props: QuestionArtistScreenProps): JSX.Element {
           }}
         >
           {answers.map((answer) => {
-            const checked = data[answer._id];
+            const checked = data?.[answer._id];
 
             if (typeof checked === 'boolean') {
               return (
@@ -68,7 +69,7 @@ function QuestionArtistScreen(props: QuestionArtistScreenProps): JSX.Element {
                 </div>
               );
             } else {
-              throw new Error('Wrong checked value type');
+              return '';
             }
           })}
           <button ref={buttonSubmitRef} className="game__submit button" type="submit" hidden>Ответить</button>
